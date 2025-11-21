@@ -1,0 +1,15 @@
+# Core dependencies
+crewai>=0.1.0
+langchain>=0.1.0
+langgraph>=0.0.30
+langchain-openai>=0.0.5
+langchain-community>=0.0.20
+
+# Visualization
+matplotlib>=3.7.0
+plotly>=5.14.0
+pandas>=2.0.0
+
+# Utilities
+python-dotenv>=1.0.0
+tiktoken>=0.5.0
