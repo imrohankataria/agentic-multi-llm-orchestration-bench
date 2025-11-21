@@ -8,7 +8,10 @@ from datetime import datetime
 import json
 
 
-# Pricing per 1K tokens (as of 2024)
+# Pricing per 1K tokens (as of November 2024)
+# Note: Verify current pricing at provider websites as rates may change
+# OpenAI: https://openai.com/pricing
+# Anthropic: https://www.anthropic.com/pricing
 LLM_PRICING = {
     "gpt-4": {"input": 0.03, "output": 0.06},
     "gpt-4-turbo": {"input": 0.01, "output": 0.03},

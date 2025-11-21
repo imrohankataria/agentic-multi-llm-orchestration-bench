@@ -13,6 +13,22 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 from cost_tracker.core import CostTracker
 from visualizations.charts import CostVisualizer
 
+# Simulation parameters for mock data
+RESEARCHER_INPUT_TOKENS = (400, 600)
+RESEARCHER_OUTPUT_TOKENS = (200, 400)
+RESEARCHER_DURATION_MS = (1000, 2000)
+RESEARCHER_STEP_DURATION_MS = (500, 1000)
+
+WRITER_INPUT_TOKENS = (800, 1200)
+WRITER_OUTPUT_TOKENS = (600, 900)
+WRITER_DURATION_MS = (2000, 3000)
+WRITER_TOOL_DURATION_MS = (300, 500)
+
+EDITOR_INPUT_TOKENS = (300, 500)
+EDITOR_OUTPUT_TOKENS = (150, 250)
+EDITOR_DURATION_MS = (800, 1500)
+EDITOR_STEP_DURATION_MS = (400, 800)
+
 
 def create_mock_workflow():
     """Create a mock workflow with simulated cost data"""
@@ -24,14 +40,14 @@ def create_mock_workflow():
         tracker.track_llm_call(
             agent_name="Researcher",
             model="gpt-4o-mini",
-            input_tokens=random.randint(400, 600),
-            output_tokens=random.randint(200, 400),
-            duration_ms=random.randint(1000, 2000)
+            input_tokens=random.randint(*RESEARCHER_INPUT_TOKENS),
+            output_tokens=random.randint(*RESEARCHER_OUTPUT_TOKENS),
+            duration_ms=random.randint(*RESEARCHER_DURATION_MS)
         )
         tracker.track_agent_step(
             agent_name="Researcher",
             step_name=f"research_step_{i+1}",
-            duration_ms=random.randint(500, 1000)
+            duration_ms=random.randint(*RESEARCHER_STEP_DURATION_MS)
         )
     
     # Simulate a writer agent (higher cost - will be flagged as spike)
@@ -39,14 +55,14 @@ def create_mock_workflow():
         tracker.track_llm_call(
             agent_name="Writer",
             model="gpt-4o-mini",
-            input_tokens=random.randint(800, 1200),  # More tokens
-            output_tokens=random.randint(600, 900),   # More output
-            duration_ms=random.randint(2000, 3000)
+            input_tokens=random.randint(*WRITER_INPUT_TOKENS),
+            output_tokens=random.randint(*WRITER_OUTPUT_TOKENS),
+            duration_ms=random.randint(*WRITER_DURATION_MS)
         )
         tracker.track_tool_call(
             agent_name="Writer",
             tool_name="grammar_check",
-            duration_ms=random.randint(300, 500)
+            duration_ms=random.randint(*WRITER_TOOL_DURATION_MS)
         )
     
     # Simulate an editor agent (low cost)
@@ -54,14 +70,14 @@ def create_mock_workflow():
         tracker.track_llm_call(
             agent_name="Editor",
             model="gpt-4o-mini",
-            input_tokens=random.randint(300, 500),
-            output_tokens=random.randint(150, 250),
-            duration_ms=random.randint(800, 1500)
+            input_tokens=random.randint(*EDITOR_INPUT_TOKENS),
+            output_tokens=random.randint(*EDITOR_OUTPUT_TOKENS),
+            duration_ms=random.randint(*EDITOR_DURATION_MS)
         )
         tracker.track_agent_step(
             agent_name="Editor",
             step_name=f"edit_step_{i+1}",
-            duration_ms=random.randint(400, 800)
+            duration_ms=random.randint(*EDITOR_STEP_DURATION_MS)
         )
     
     tracker.end_workflow()

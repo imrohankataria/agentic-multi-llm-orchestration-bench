@@ -7,6 +7,7 @@ import matplotlib.dates as mdates
 from matplotlib.patches import Rectangle
 import plotly.graph_objects as go
 import plotly.express as px
+from plotly.subplots import make_subplots
 from typing import Dict, List, Optional
 import pandas as pd
 from datetime import datetime
@@ -321,7 +322,7 @@ class CostVisualizer:
                     align='left'
                 ),
                 cells=dict(
-                    values=list(zip(*table_data)) if table_data else [[]],
+                    values=list(zip(*table_data)) if table_data else [[], [], [], [], []],
                     fill_color='lavender',
                     align='left'
                 )
